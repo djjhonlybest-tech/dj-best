@@ -748,24 +748,36 @@ export default function HomeScreen() {
           marginBottom: 16,
         }}
       >
-        <View style={{ flexDirection: 'row' }}>
+        <View>
+          <View style={{ flexDirection: 'row' }}>
+            <Text
+              style={{
+                fontSize: 26,
+                fontFamily: 'SpaceGrotesk-Bold',
+                color: '#fff',
+              }}
+            >
+              DJ
+            </Text>
+            <Text
+              style={{
+                fontSize: 26,
+                fontFamily: 'SpaceGrotesk-Bold',
+                color: DJCOLORS.primary,
+              }}
+            >
+              VERSE
+            </Text>
+          </View>
           <Text
             style={{
-              fontSize: 26,
-              fontFamily: 'SpaceGrotesk-Bold',
-              color: '#fff',
+              fontSize: 11,
+              fontFamily: 'SpaceGrotesk-Regular',
+              color: DJCOLORS.textSecondary,
+              marginTop: 2,
             }}
           >
-            DJ
-          </Text>
-          <Text
-            style={{
-              fontSize: 26,
-              fontFamily: 'SpaceGrotesk-Bold',
-              color: DJCOLORS.primary,
-            }}
-          >
-            VERSE
+            The Social Entertainment Platform 🎧
           </Text>
         </View>
 

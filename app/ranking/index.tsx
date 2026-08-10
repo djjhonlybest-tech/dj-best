@@ -30,6 +30,26 @@ const RANKED_LIST = [
 
 const TABS = ['DJS', 'BATTLES', 'SHORTS'];
 
+const COMPETITION_TABS = ['Weekly', 'Monthly', 'Global'];
+
+const COMPETITION_INFO = [
+  {
+    title: '🏆 WEEKLY CHAMPION',
+    subtitle: 'Ends Sunday midnight',
+    prize: 'Top DJ Badge + 100 pts',
+  },
+  {
+    title: '👑 MONTHLY CHAMPION',
+    subtitle: 'Ends Jan 31',
+    prize: '500 pts + Homepage Feature',
+  },
+  {
+    title: '🌎 GLOBAL CHAMPIONSHIP',
+    subtitle: 'Q1 2025',
+    prize: 'DJVERSE LEGEND',
+  },
+];
+
 function Top3Card({ dj, index }: { dj: typeof TOP3[0]; index: number }) {
   const itemOpacity = useRef(new Animated.Value(0)).current;
   const itemScale = useRef(new Animated.Value(0.9)).current;
@@ -241,6 +261,7 @@ export default function RankingScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState(0);
+  const [activeCompTab, setActiveCompTab] = useState(0);
 
   const handleBack = () => {
     console.log('[Ranking] Back button pressed');
@@ -254,6 +275,11 @@ export default function RankingScreen() {
   const handleTabPress = (index: number) => {
     console.log(`[Ranking] Tab pressed: ${TABS[index]}`);
     setActiveTab(index);
+  };
+
+  const handleCompTabPress = (index: number) => {
+    console.log(`[Ranking] Competition tab pressed: ${COMPETITION_TABS[index]}`);
+    setActiveCompTab(index);
   };
 
   const handleViewFull = () => {
@@ -362,6 +388,95 @@ export default function RankingScreen() {
               </View>
             </AnimatedPressable>
           ))}
+        </View>
+
+        {/* Competition Tiers */}
+        <View style={{ marginBottom: 20 }}>
+          {/* Competition pill tabs */}
+          <View style={{ flexDirection: 'row', gap: 8, marginBottom: 14 }}>
+            {COMPETITION_TABS.map((tab, i) => {
+              const isActive = activeCompTab === i;
+              const tabBg = isActive ? DJCOLORS.gold : DJCOLORS.surface;
+              const tabTextColor = isActive ? '#0A0A0F' : DJCOLORS.textSecondary;
+              return (
+                <AnimatedPressable key={tab} onPress={() => handleCompTabPress(i)}>
+                  <View
+                    style={{
+                      paddingHorizontal: 18,
+                      paddingVertical: 8,
+                      borderRadius: 20,
+                      backgroundColor: tabBg,
+                      borderWidth: 1,
+                      borderColor: isActive ? DJCOLORS.gold : DJCOLORS.border,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 13,
+                        fontFamily: 'SpaceGrotesk-Bold',
+                        color: tabTextColor,
+                      }}
+                    >
+                      {tab}
+                    </Text>
+                  </View>
+                </AnimatedPressable>
+              );
+            })}
+          </View>
+
+          {/* Competition info card */}
+          <View
+            style={{
+              backgroundColor: DJCOLORS.surface,
+              borderRadius: 16,
+              padding: 16,
+              borderWidth: 1,
+              borderColor: DJCOLORS.border,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 16,
+                fontFamily: 'SpaceGrotesk-Bold',
+                color: DJCOLORS.text,
+                marginBottom: 4,
+              }}
+            >
+              {COMPETITION_INFO[activeCompTab].title}
+            </Text>
+            <Text
+              style={{
+                fontSize: 13,
+                fontFamily: 'SpaceGrotesk-Regular',
+                color: DJCOLORS.textSecondary,
+                marginBottom: 12,
+              }}
+            >
+              {COMPETITION_INFO[activeCompTab].subtitle}
+            </Text>
+            <View
+              style={{
+                alignSelf: 'flex-start',
+                backgroundColor: `${DJCOLORS.gold}22`,
+                borderRadius: 20,
+                paddingHorizontal: 14,
+                paddingVertical: 6,
+                borderWidth: 1,
+                borderColor: `${DJCOLORS.gold}55`,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 12,
+                  fontFamily: 'SpaceGrotesk-Bold',
+                  color: DJCOLORS.gold,
+                }}
+              >
+                🏅 {COMPETITION_INFO[activeCompTab].prize}
+              </Text>
+            </View>
+          </View>
         </View>
 
         {/* Top 3 Podium */}

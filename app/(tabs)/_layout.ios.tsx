@@ -9,8 +9,8 @@ export default function TabLayout() {
         <Label>Home</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="(search)">
-        <Icon sf="magnifyingglass" android="search" />
-        <Label>Search</Label>
+        <Icon sf="flame.fill" android="local_fire_department" />
+        <Label>Discover</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="(create)">
         <Icon sf="plus.circle.fill" android="add_circle" />

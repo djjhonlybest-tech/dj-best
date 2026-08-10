@@ -14,9 +14,26 @@ import { AnimatedPressable } from '@/components/AnimatedPressable';
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const GENRE_CARDS = [
-  { genre: 'Afrobeat', bpm: '120-128 BPM', color: '#1A0A3A' },
-  { genre: 'Kompa', bpm: '100-110 BPM', color: '#0A1A3A' },
-  { genre: 'Amapiano', bpm: '112-116 BPM', color: '#2A0A2A' },
+  { genre: 'Kompa', bpm: '100-110 BPM', color: '#0A1A3A', emoji: '🎷' },
+  { genre: 'Afrobeat', bpm: '120-128 BPM', color: '#1A0A3A', emoji: '🥁' },
+  { genre: 'Rabòday', bpm: '95-105 BPM', color: '#3A0A0A', emoji: '🔥' },
+  { genre: 'Amapiano', bpm: '112-116 BPM', color: '#2A0A2A', emoji: '🎹' },
+  { genre: 'Dancehall', bpm: '90-100 BPM', color: '#1A2A0A', emoji: '🌴' },
+  { genre: 'House', bpm: '124-132 BPM', color: '#0A2A2A', emoji: '🏠' },
+];
+
+const MIX_UPLOAD_FEATURES = [
+  { icon: '📤', label: 'Upload Mix', sub: 'Share your full set' },
+  { icon: '🎵', label: 'Add Tracklist', sub: 'Tag every track' },
+  { icon: '🌍', label: 'Set Genre', sub: 'Afrobeat, Kompa...' },
+  { icon: '📊', label: 'View Stats', sub: 'Plays, likes, shares' },
+];
+
+const HAITIAN_DJS = [
+  { name: 'DJ JHONLYBEST', genre: 'Kompa • Afrobeat', flag: '🇭🇹', color: '#1A0A3A', rank: '#3' },
+  { name: 'DJ KOMPA KING', genre: 'Kompa • Caribbean', flag: '🇭🇹', color: '#0A1A3A', rank: '#1' },
+  { name: 'DJ STORM', genre: 'Rabòday • Hip-Hop', flag: '🇭🇹', color: '#3A0A0A', rank: '#5' },
+  { name: 'DJ NOVA', genre: 'Afro-Kompa', flag: '🇭🇹', color: '#1A2A0A', rank: '#8' },
 ];
 
 const UPCOMING_BATTLES = [
@@ -70,6 +87,14 @@ export default function DJHubScreen() {
 
   const handleRankingDJ = (name: string) => {
     console.log(`[DJ Hub] Ranking DJ pressed: ${name}`);
+  };
+
+  const handleMixFeature = (label: string) => {
+    console.log(`[DJ Hub] Mix feature pressed: ${label}`);
+  };
+
+  const handleHaitianDJ = (name: string) => {
+    console.log(`[DJ Hub] Haitian DJ spotlight pressed: ${name}`);
   };
 
   return (
@@ -267,24 +292,82 @@ export default function DJHubScreen() {
                 <View
                   style={{
                     width: 100,
-                    height: 60,
+                    height: 72,
                     borderRadius: 12,
                     backgroundColor: card.color,
                     padding: 10,
                     justifyContent: 'center',
+                    alignItems: 'center',
                     borderWidth: 1,
                     borderColor: DJCOLORS.border,
+                    gap: 4,
                   }}
                 >
+                  <Text style={{ fontSize: 20 }}>{card.emoji}</Text>
                   <Text
                     style={{
-                      fontSize: 14,
+                      fontSize: 13,
                       fontFamily: 'SpaceGrotesk-Bold',
                       color: '#fff',
-                      marginBottom: 2,
                     }}
                   >
                     {card.genre}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 10,
+                      fontFamily: 'SpaceGrotesk-Regular',
+                      color: DJCOLORS.textSecondary,
+                    }}
+                  >
+                    {card.bpm}
+                  </Text>
+                </View>
+              </AnimatedPressable>
+            ))}
+          </ScrollView>
+        </View>
+
+        {/* Mix Upload */}
+        <View style={{ marginBottom: 20, paddingHorizontal: 20 }}>
+          <Text
+            style={{
+              fontSize: 13,
+              fontFamily: 'SpaceGrotesk-Bold',
+              color: DJCOLORS.text,
+              letterSpacing: 1,
+              marginBottom: 12,
+            }}
+          >
+            🎧 MIX UPLOAD
+          </Text>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
+            {MIX_UPLOAD_FEATURES.map((feat) => (
+              <AnimatedPressable
+                key={feat.label}
+                onPress={() => handleMixFeature(feat.label)}
+                style={{ width: '47%' }}
+              >
+                <View
+                  style={{
+                    backgroundColor: DJCOLORS.surface,
+                    borderRadius: 14,
+                    padding: 14,
+                    minHeight: 80,
+                    borderWidth: 1,
+                    borderColor: DJCOLORS.border,
+                    gap: 4,
+                  }}
+                >
+                  <Text style={{ fontSize: 24 }}>{feat.icon}</Text>
+                  <Text
+                    style={{
+                      fontSize: 13,
+                      fontFamily: 'SpaceGrotesk-Bold',
+                      color: DJCOLORS.text,
+                    }}
+                  >
+                    {feat.label}
                   </Text>
                   <Text
                     style={{
@@ -293,8 +376,106 @@ export default function DJHubScreen() {
                       color: DJCOLORS.textSecondary,
                     }}
                   >
-                    {card.bpm}
+                    {feat.sub}
                   </Text>
+                </View>
+              </AnimatedPressable>
+            ))}
+          </View>
+        </View>
+
+        {/* Haitian DJ Spotlight */}
+        <View style={{ marginBottom: 20 }}>
+          <Text
+            style={{
+              fontSize: 13,
+              fontFamily: 'SpaceGrotesk-Bold',
+              color: DJCOLORS.text,
+              letterSpacing: 1,
+              paddingHorizontal: 20,
+              marginBottom: 12,
+            }}
+          >
+            🇭🇹 HAITIAN DJ SPOTLIGHT
+          </Text>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ paddingHorizontal: 20, gap: 10 }}
+          >
+            {HAITIAN_DJS.map((dj) => (
+              <AnimatedPressable
+                key={dj.name}
+                onPress={() => handleHaitianDJ(dj.name)}
+              >
+                <View
+                  style={{
+                    width: 150,
+                    height: 100,
+                    borderRadius: 14,
+                    backgroundColor: dj.color,
+                    padding: 10,
+                    borderWidth: 1,
+                    borderColor: DJCOLORS.border,
+                  }}
+                >
+                  {/* Rank badge top-left */}
+                  <View
+                    style={{
+                      position: 'absolute',
+                      top: 8,
+                      left: 8,
+                      backgroundColor: DJCOLORS.gold,
+                      borderRadius: 10,
+                      paddingHorizontal: 7,
+                      paddingVertical: 2,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 10,
+                        fontFamily: 'SpaceGrotesk-Bold',
+                        color: '#0A0A0F',
+                      }}
+                    >
+                      {dj.rank}
+                    </Text>
+                  </View>
+                  {/* Flag top-right */}
+                  <Text
+                    style={{
+                      position: 'absolute',
+                      top: 8,
+                      right: 10,
+                      fontSize: 16,
+                    }}
+                  >
+                    {dj.flag}
+                  </Text>
+                  {/* Name + genre bottom */}
+                  <View style={{ position: 'absolute', bottom: 10, left: 10, right: 10 }}>
+                    <Text
+                      style={{
+                        fontSize: 13,
+                        fontFamily: 'SpaceGrotesk-Bold',
+                        color: '#fff',
+                        marginBottom: 2,
+                      }}
+                      numberOfLines={1}
+                    >
+                      {dj.name}
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 10,
+                        fontFamily: 'SpaceGrotesk-Regular',
+                        color: 'rgba(255,255,255,0.6)',
+                      }}
+                      numberOfLines={1}
+                    >
+                      {dj.genre}
+                    </Text>
+                  </View>
                 </View>
               </AnimatedPressable>
             ))}

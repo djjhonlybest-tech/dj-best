@@ -3,13 +3,13 @@ import { Tabs } from 'expo-router';
 import { View, TouchableOpacity, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BlurView } from 'expo-blur';
-import { Home, Search, Plus, Headphones, User } from 'lucide-react-native';
+import { Home, Flame, Plus, Headphones, User } from 'lucide-react-native';
 import { DJCOLORS } from '@/constants/djverse-colors';
 import { usePathname } from 'expo-router';
 
 const tabs = [
   { name: '(home)', label: 'Home', Icon: Home },
-  { name: '(search)', label: 'Search', Icon: Search },
+  { name: '(search)', label: 'Discover', Icon: Flame },
   { name: '(create)', label: 'Create', Icon: Plus },
   { name: '(dj)', label: 'DJ', Icon: Headphones },
   { name: '(profile)', label: 'Profile', Icon: User },
