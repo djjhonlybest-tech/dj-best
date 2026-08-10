@@ -4,10 +4,10 @@
     "slug": "djverse",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/app-icon-kpk.png",
+    "icon": "./assets/images/app-icon-jjc.png",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/app-icon-kpk.png",
+      "image": "./assets/images/app-icon-jjc.png",
       "resizeMode": "contain",
       "backgroundColor": "#FFFFFF"
     },
@@ -20,7 +20,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/app-icon-kpk.png",
+        "foregroundImage": "./assets/images/app-icon-jjc.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.placeholder.app"
