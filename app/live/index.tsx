@@ -23,7 +23,7 @@ const MOCK_COMMENTS = [
   { id: '1', user: 'DJ STORM', text: 'This set is 🔥🔥🔥', color: '#FF4F4F' },
   { id: '2', user: 'MARIE', text: 'Loving the vibes tonight!', color: '#FF4FC8' },
   { id: '3', user: 'FANATIC_BEATS', text: 'That transition was insane 😱', color: '#4FC8FF' },
-  { id: '4', user: 'PARTY_QUEEN', text: 'Best DJ on DJVERSE 🏆', color: '#4FFF8A' },
+  { id: '4', user: 'PARTY_QUEEN', text: 'Best DJ on DJ BEST 🏆', color: '#4FFF8A' },
   { id: '5', user: 'MUSIC_LOVER', text: 'Playing this at my party 🎉', color: '#FFB84F' },
 ];
 

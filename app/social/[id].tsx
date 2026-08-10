@@ -35,7 +35,7 @@ const POSTS: Post[] = [
   { id: '3', username: 'DJ STORM', userType: 'DJ', postType: 'Battle', caption: 'Who wants to battle? 👊', likes: 3200, comments: 156, timeAgo: '5h ago', avatarColor: '#FF4F4F', contentColor: '#3A0A0A' },
   { id: '4', username: 'FANATIC_BEATS', userType: 'Fan', postType: 'Video', caption: 'This transition is insane 😱', likes: 892, comments: 67, timeAgo: '7h ago', avatarColor: '#4FC8FF', contentColor: '#0A2A1A' },
   { id: '5', username: 'DJ KOMPA KING', userType: 'DJ', postType: 'Short', caption: 'Kompa x Afrobeat fusion 🌴', likes: 5600, comments: 234, timeAgo: '9h ago', avatarColor: '#FFB84F', contentColor: '#2A0A2A' },
-  { id: '6', username: 'PARTY_QUEEN', userType: 'Creator', postType: 'Event', caption: 'DJVERSE PARTY — Port-au-Prince 📍 Dec 28', likes: 2100, comments: 98, timeAgo: '12h ago', avatarColor: '#4FFF8A', contentColor: '#1A2A0A' },
+  { id: '6', username: 'PARTY_QUEEN', userType: 'Creator', postType: 'Event', caption: 'DJ BEST PARTY — Port-au-Prince 📍 Dec 28', likes: 2100, comments: 98, timeAgo: '12h ago', avatarColor: '#4FFF8A', contentColor: '#1A2A0A' },
   { id: '7', username: 'DJ NOVA', userType: 'DJ', postType: 'Mix', caption: 'House music all night long 🏠', likes: 1800, comments: 45, timeAgo: '1d ago', avatarColor: '#A04FFF', contentColor: '#1A0A3A' },
   { id: '8', username: 'MUSIC_LOVER', userType: 'Fan', postType: 'Photo', caption: 'Best night ever with @DJSTORM', likes: 445, comments: 22, timeAgo: '1d ago', avatarColor: '#FF8A4F', contentColor: '#0A1A3A' },
 ];

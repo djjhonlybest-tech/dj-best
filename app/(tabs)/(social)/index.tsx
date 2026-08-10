@@ -121,7 +121,7 @@ const POSTS: Post[] = [
     username: 'PARTY_QUEEN',
     userType: 'Creator',
     postType: 'Event',
-    caption: 'DJVERSE PARTY — Port-au-Prince 📍 Dec 28',
+    caption: 'DJ BEST PARTY — Port-au-Prince 📍 Dec 28',
     likes: 2100,
     comments: 98,
     timeAgo: '12h ago',
@@ -619,7 +619,7 @@ export default function SocialFeedScreen() {
       >
         <Text style={{ fontSize: 22, fontFamily: 'SpaceGrotesk-Bold', color: DJCOLORS.text, letterSpacing: 2 }}>
           DJ
-          <Text style={{ color: DJCOLORS.primary }}>VERSE</Text>
+          <Text style={{ color: DJCOLORS.primary }}> BEST</Text>
         </Text>
 
         <View style={{ flexDirection: 'row', gap: 10 }}>

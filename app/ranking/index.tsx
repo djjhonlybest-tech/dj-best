@@ -46,7 +46,7 @@ const COMPETITION_INFO = [
   {
     title: '🌎 GLOBAL CHAMPIONSHIP',
     subtitle: 'Q1 2025',
-    prize: 'DJVERSE LEGEND',
+    prize: 'DJ BEST LEGEND',
   },
 ];
 

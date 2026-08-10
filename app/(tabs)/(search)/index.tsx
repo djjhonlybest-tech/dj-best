@@ -39,11 +39,11 @@ const TOP_DJS = [
 const COMPETITIONS = [
   { id: '1', title: 'Weekly Champion', prize: 'Top DJ Badge', icon: '🏆', status: 'LIVE', color: '#1A0A3A', ends: 'Ends Sunday' },
   { id: '2', title: 'Monthly Champion', prize: '500 pts + Feature', icon: '👑', status: 'UPCOMING', color: '#0A1A3A', ends: 'Jan 31' },
-  { id: '3', title: 'Global Championship', prize: 'DJVERSE Legend', icon: '🌎', status: 'UPCOMING', color: '#1A2A0A', ends: 'Q1 2025' },
+  { id: '3', title: 'Global Championship', prize: 'DJ BEST Legend', icon: '🌎', status: 'UPCOMING', color: '#1A2A0A', ends: 'Q1 2025' },
 ];
 
 const HASHTAGS = [
-  '#DJVERSE', '#Kompa', '#Afrobeat', '#Rabòday',
+  '#DJBEST', '#Kompa', '#Afrobeat', '#Rabòday',
   '#Amapiano', '#HaitiVibes', '#DJBattle', '#Dancehall',
   '#HouseMusic', '#AfroKompa', '#Caribbean', '#WorldDJ',
 ];
@@ -256,7 +256,7 @@ export default function DiscoverScreen() {
               marginBottom: 0,
             }}
           >
-            Give every DJ a stage, every creator a voice 🎧
+            Mix. Vibe. Create. Inspire.
           </Text>
         </View>
 

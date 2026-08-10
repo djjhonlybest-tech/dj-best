@@ -36,11 +36,11 @@ const TRENDING_ITEMS = [
 const FEED_POSTS = [
   { id: 'trending', type: 'banner' },
   { id: '1', type: 'post', username: 'DJ JHONLYBEST', userType: 'DJ', postType: 'Live', caption: '🔴 LIVE NOW — Afrobeat Set 🔥 Join 1.2K viewers', likes: 4200, comments: 312, timeAgo: 'LIVE', avatarColor: '#7B4FFF', contentColor: '#1A0A3A', isLive: true, sound: 'Body On Fire' },
-  { id: '2', type: 'post', username: 'MARIE_CREATOR', userType: 'Creator', postType: 'Photo', caption: 'Party vibes last night 🎉 #DJVERSE', likes: 1100, comments: 34, timeAgo: '2h ago', avatarColor: '#FF4FC8', contentColor: '#0A1A3A', isLive: false, sound: null },
+  { id: '2', type: 'post', username: 'MARIE_CREATOR', userType: 'Creator', postType: 'Photo', caption: 'Party vibes last night 🎉 #DJBEST', likes: 1100, comments: 34, timeAgo: '2h ago', avatarColor: '#FF4FC8', contentColor: '#0A1A3A', isLive: false, sound: null },
   { id: '3', type: 'post', username: 'DJ STORM', userType: 'DJ', postType: 'Battle', caption: '🏆 Haiti vs USA — WHO WINS? Vote now!', likes: 8900, comments: 567, timeAgo: '3h ago', avatarColor: '#FF4F4F', contentColor: '#3A0A0A', isLive: false, sound: 'Midnight Energy' },
   { id: '4', type: 'post', username: 'FANATIC_BEATS', userType: 'Fan', postType: 'Video', caption: 'This transition is INSANE 😱 @DJSTORM', likes: 2300, comments: 89, timeAgo: '5h ago', avatarColor: '#4FC8FF', contentColor: '#0A2A1A', isLive: false, sound: 'Love Tonight' },
   { id: '5', type: 'post', username: 'DJ KOMPA KING', userType: 'DJ', postType: 'Short', caption: 'Kompa x Afrobeat fusion 🌴 #NewSound', likes: 12400, comments: 891, timeAgo: '6h ago', avatarColor: '#FFB800', contentColor: '#2A0A2A', isLive: true, sound: 'Kompa Fusion' },
-  { id: '6', type: 'post', username: 'PARTY_QUEEN', userType: 'Creator', postType: 'Event', caption: '📍 DJVERSE PARTY — Port-au-Prince Dec 28 🇭🇹', likes: 3100, comments: 145, timeAgo: '8h ago', avatarColor: '#34D399', contentColor: '#1A2A0A', isLive: false, sound: null },
+  { id: '6', type: 'post', username: 'PARTY_QUEEN', userType: 'Creator', postType: 'Event', caption: '📍 DJ BEST PARTY — Port-au-Prince Dec 28 🇭🇹', likes: 3100, comments: 145, timeAgo: '8h ago', avatarColor: '#34D399', contentColor: '#1A2A0A', isLive: false, sound: null },
   { id: '7', type: 'post', username: 'DJ NOVA', userType: 'DJ', postType: 'Mix', caption: 'House music all night long 🏠 Full 1hr set', likes: 5600, comments: 234, timeAgo: '10h ago', avatarColor: '#A04FFF', contentColor: '#1A0A3A', isLive: false, sound: 'Nova House Mix' },
   { id: '8', type: 'post', username: 'MUSIC_LOVER', userType: 'Fan', postType: 'Photo', caption: 'Best night ever with @DJSTORM 🙌', likes: 890, comments: 45, timeAgo: '12h ago', avatarColor: '#FF8A4F', contentColor: '#0A1A3A', isLive: false, sound: null },
   { id: '9', type: 'post', username: 'DJ BEATS', userType: 'DJ', postType: 'Short', caption: 'New Amapiano drop 🎵 Who vibes with this?', likes: 7800, comments: 456, timeAgo: '1d ago', avatarColor: '#4FFF8A', contentColor: '#2A0A2A', isLive: false, sound: 'Amapiano Drop' },
@@ -281,7 +281,7 @@ export default function HomeScreenIOS() {
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingTop: insets.top + 12, paddingHorizontal: 20, marginBottom: 16 }}>
         <View style={{ flexDirection: 'row' }}>
           <Text style={{ fontSize: 26, fontFamily: 'SpaceGrotesk-Bold', color: '#fff' }}>DJ</Text>
-          <Text style={{ fontSize: 26, fontFamily: 'SpaceGrotesk-Bold', color: DJCOLORS.primary }}>VERSE</Text>
+          <Text style={{ fontSize: 26, fontFamily: 'SpaceGrotesk-Bold', color: DJCOLORS.primary }}> BEST</Text>
         </View>
         <View style={{ flexDirection: 'row', gap: 8 }}>
           <AnimatedPressable onPress={handleBell}>
