@@ -8,21 +8,17 @@ export default function TabLayout() {
         <Icon sf="house.fill" android="home" />
         <Label>Home</Label>
       </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="(studio)">
-        <Icon sf="music.note.list" android="queue_music" />
-        <Label>Studio</Label>
+      <NativeTabs.Trigger name="(search)">
+        <Icon sf="magnifyingglass" android="search" />
+        <Label>Search</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="(create)">
         <Icon sf="plus.circle.fill" android="add_circle" />
         <Label>Create</Label>
       </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="(battle)">
-        <Icon sf="trophy.fill" android="emoji_events" />
-        <Label>Battle</Label>
-      </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="(social)">
-        <Icon sf="person.2.fill" android="group" />
-        <Label>Social</Label>
+      <NativeTabs.Trigger name="(dj)">
+        <Icon sf="headphones" android="headphones" />
+        <Label>DJ</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="(profile)">
         <Icon sf="person.fill" android="person" />

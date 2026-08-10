@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { Settings, ArrowLeft } from 'lucide-react-native';
+import { Settings } from 'lucide-react-native';
 import { DJCOLORS } from '@/constants/djverse-colors';
 import { AnimatedPressable } from '@/components/AnimatedPressable';
 
@@ -17,8 +17,8 @@ const GRID_COLORS = [
   '#3A2A1A', '#1A3A3A', '#2A1A3A',
 ];
 
-const DJ_TABS = ['MIXES', 'BATTLES', 'SHORTS', 'LIKES'];
-const CREATOR_TABS = ['POSTS', 'VIDEOS', 'SHORTS', 'LIKES'];
+const DJ_TABS = ['POSTS', 'MIXES', 'BATTLES', 'SHORTS', 'RANKING'];
+const CREATOR_TABS = ['POSTS', 'PHOTOS', 'VIDEOS', 'SHORTS', 'LIKES'];
 
 export default function ProfileScreen() {
   const insets = useSafeAreaInsets();
@@ -37,11 +37,6 @@ export default function ProfileScreen() {
       Animated.timing(translateY, { toValue: 0, duration: 400, useNativeDriver: true }),
     ]).start();
   }, [opacity, translateY]);
-
-  const handleBack = () => {
-    console.log('[Profile] Back button pressed');
-    router.back();
-  };
 
   const handleSettings = () => {
     console.log('[Profile] Settings button pressed');
@@ -71,6 +66,12 @@ export default function ProfileScreen() {
     setActiveTab(0);
   };
 
+  const handleUseSoundBanner = () => {
+    console.log('[Profile] Use This Sound banner pressed');
+  };
+
+  const showMixesSoundBanner = profileType === 'dj' && (activeTab === 0 || activeTab === 1);
+
   return (
     <View style={{ flex: 1, backgroundColor: DJCOLORS.background }}>
       <ScrollView
@@ -90,22 +91,7 @@ export default function ProfileScreen() {
             marginBottom: 28,
           }}
         >
-          <AnimatedPressable onPress={handleBack}>
-            <View
-              style={{
-                width: 44,
-                height: 44,
-                borderRadius: 12,
-                backgroundColor: DJCOLORS.surface,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderWidth: 1,
-                borderColor: DJCOLORS.border,
-              }}
-            >
-              <Text style={{ color: DJCOLORS.text, fontSize: 18, fontWeight: '600' }}>←</Text>
-            </View>
-          </AnimatedPressable>
+          <View style={{ width: 44 }} />
 
           <Text
             style={{
@@ -442,46 +428,105 @@ export default function ProfileScreen() {
           </View>
 
           {/* Segmented Tabs */}
-          <View
-            style={{
-              flexDirection: 'row',
-              backgroundColor: DJCOLORS.surface,
-              borderRadius: 12,
-              padding: 4,
-              marginBottom: 16,
-              borderWidth: 1,
-              borderColor: DJCOLORS.border,
-            }}
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={{ marginBottom: 16 }}
           >
-            {TABS.map((tab, i) => (
-              <AnimatedPressable
-                key={tab}
-                onPress={() => handleTabPress(i)}
-                style={{ flex: 1 }}
-              >
-                <View
-                  style={{
-                    paddingVertical: 10,
-                    borderRadius: 10,
-                    alignItems: 'center',
-                    backgroundColor: activeTab === i ? DJCOLORS.primary : 'transparent',
-                  }}
+            <View
+              style={{
+                flexDirection: 'row',
+                backgroundColor: DJCOLORS.surface,
+                borderRadius: 12,
+                padding: 4,
+                borderWidth: 1,
+                borderColor: DJCOLORS.border,
+                gap: 2,
+              }}
+            >
+              {TABS.map((tab, i) => (
+                <AnimatedPressable
+                  key={tab}
+                  onPress={() => handleTabPress(i)}
                 >
-                  <Text
+                  <View
                     style={{
-                      color: activeTab === i ? DJCOLORS.text : DJCOLORS.textSecondary,
-                      fontWeight: '700',
-                      fontSize: 12,
-                      fontFamily: 'SpaceGrotesk-Bold',
-                      letterSpacing: 0.5,
+                      paddingVertical: 10,
+                      paddingHorizontal: 14,
+                      borderRadius: 10,
+                      alignItems: 'center',
+                      backgroundColor: activeTab === i ? DJCOLORS.primary : 'transparent',
                     }}
                   >
-                    {tab}
+                    <Text
+                      style={{
+                        color: activeTab === i ? DJCOLORS.text : DJCOLORS.textSecondary,
+                        fontWeight: '700',
+                        fontSize: 12,
+                        fontFamily: 'SpaceGrotesk-Bold',
+                        letterSpacing: 0.5,
+                      }}
+                    >
+                      {tab}
+                    </Text>
+                  </View>
+                </AnimatedPressable>
+              ))}
+            </View>
+          </ScrollView>
+
+          {/* Use This Sound banner — DJ mode, POSTS or MIXES tab */}
+          {showMixesSoundBanner && (
+            <AnimatedPressable onPress={handleUseSoundBanner} style={{ marginBottom: 16 }}>
+              <View
+                style={{
+                  backgroundColor: DJCOLORS.surface,
+                  borderRadius: 14,
+                  padding: 14,
+                  borderWidth: 1,
+                  borderColor: DJCOLORS.primary + '55',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 12,
+                }}
+              >
+                <Text style={{ fontSize: 20 }}>🎵</Text>
+                <View style={{ flex: 1 }}>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontFamily: 'SpaceGrotesk-Regular',
+                      color: DJCOLORS.textSecondary,
+                      marginBottom: 3,
+                    }}
+                  >
+                    Your sounds are being used by creators!
                   </Text>
+                  <View
+                    style={{
+                      backgroundColor: DJCOLORS.primaryMuted,
+                      borderRadius: 20,
+                      paddingHorizontal: 10,
+                      paddingVertical: 4,
+                      alignSelf: 'flex-start',
+                      borderWidth: 1,
+                      borderColor: DJCOLORS.primary,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        fontFamily: 'SpaceGrotesk-Bold',
+                        color: DJCOLORS.primary,
+                      }}
+                    >
+                      🎵 Body On Fire — 24.5K uses
+                    </Text>
+                  </View>
                 </View>
-              </AnimatedPressable>
-            ))}
-          </View>
+              </View>
+            </AnimatedPressable>
+          )}
 
           {/* Post Grid */}
           <View

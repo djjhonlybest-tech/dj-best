@@ -1,24 +1,23 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
-import { View, TouchableOpacity, Text, Platform } from 'react-native';
+import { View, TouchableOpacity, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BlurView } from 'expo-blur';
-import { Home, Music2, Plus, Trophy, Users, User } from 'lucide-react-native';
+import { Home, Search, Plus, Headphones, User } from 'lucide-react-native';
 import { DJCOLORS } from '@/constants/djverse-colors';
 import { usePathname } from 'expo-router';
+
+const tabs = [
+  { name: '(home)', label: 'Home', Icon: Home },
+  { name: '(search)', label: 'Search', Icon: Search },
+  { name: '(create)', label: 'Create', Icon: Plus },
+  { name: '(dj)', label: 'DJ', Icon: Headphones },
+  { name: '(profile)', label: 'Profile', Icon: User },
+];
 
 function DJTabBar({ state, descriptors, navigation }: any) {
   const insets = useSafeAreaInsets();
   const pathname = usePathname();
-
-  const tabs = [
-    { name: '(home)', label: 'Home', Icon: Home },
-    { name: '(studio)', label: 'Studio', Icon: Music2 },
-    { name: '(create)', label: 'Create', Icon: Plus },
-    { name: '(battle)', label: 'Battle', Icon: Trophy },
-    { name: '(social)', label: 'Social', Icon: Users },
-    { name: '(profile)', label: 'Profile', Icon: User },
-  ];
 
   return (
     <BlurView
@@ -53,11 +52,7 @@ function DJTabBar({ state, descriptors, navigation }: any) {
             }
           };
 
-          const iconColor = isFocused
-            ? isCreate
-              ? DJCOLORS.primary
-              : DJCOLORS.primary
-            : DJCOLORS.textSecondary;
+          const iconColor = isFocused ? DJCOLORS.primary : DJCOLORS.textSecondary;
 
           return (
             <TouchableOpacity
@@ -116,10 +111,9 @@ export default function TabLayout() {
       screenOptions={{ headerShown: false }}
     >
       <Tabs.Screen name="(home)" options={{ title: 'Home' }} />
-      <Tabs.Screen name="(studio)" options={{ title: 'Studio' }} />
+      <Tabs.Screen name="(search)" options={{ title: 'Search' }} />
       <Tabs.Screen name="(create)" options={{ title: 'Create' }} />
-      <Tabs.Screen name="(battle)" options={{ title: 'Battle' }} />
-      <Tabs.Screen name="(social)" options={{ title: 'Social' }} />
+      <Tabs.Screen name="(dj)" options={{ title: 'DJ' }} />
       <Tabs.Screen name="(profile)" options={{ title: 'Profile' }} />
     </Tabs>
   );
