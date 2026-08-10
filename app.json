@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "DJVerse",
-    "slug": "djverse",
+    "name": "DJ best",
+    "slug": "djjhonly",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/ChatGPT Image Aug 10, 2026, 04_37_17 PM.png",
@@ -35,7 +35,7 @@
       "expo-web-browser",
       "expo-secure-store"
     ],
-    "scheme": "djverse",
+    "scheme": "djjhonly",
     "experiments": {
       "typedRoutes": true
     },
