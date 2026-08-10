@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "DJ best",
-    "slug": "djjhonly",
+    "name": "Dj best",
+    "slug": "dj-best",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/ChatGPT Image Aug 10, 2026, 04_37_17 PM.png",
+    "icon": "./assets/images/ChatGPT Image Aug 10, 2026, 05_34_26 PM.png",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/ChatGPT Image Aug 10, 2026, 04_37_17 PM.png",
+      "image": "./assets/images/ChatGPT Image Aug 10, 2026, 05_34_26 PM.png",
       "resizeMode": "contain",
       "backgroundColor": "#FFFFFF"
     },
@@ -20,7 +20,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/ChatGPT Image Aug 10, 2026, 04_37_17 PM.png",
+        "foregroundImage": "./assets/images/ChatGPT Image Aug 10, 2026, 05_34_26 PM.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.placeholder.app"
@@ -35,7 +35,7 @@
       "expo-web-browser",
       "expo-secure-store"
     ],
-    "scheme": "djjhonly",
+    "scheme": "djbest",
     "experiments": {
       "typedRoutes": true
     },
