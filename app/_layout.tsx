@@ -91,6 +91,7 @@ export default function RootLayout() {
                 <Stack.Screen name="ai-assistant/index" options={{ headerShown: false }} />
                 <Stack.Screen name="ranking/index" options={{ headerShown: false }} />
                 <Stack.Screen name="plans/index" options={{ headerShown: false }} />
+                <Stack.Screen name="social/[id]" options={{ headerShown: false }} />
               </Stack>
               <SystemBars style={"light"} />
             </GestureHandlerRootView>

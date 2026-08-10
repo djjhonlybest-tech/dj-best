@@ -20,6 +20,10 @@ export default function TabLayout() {
         <Icon sf="trophy.fill" android="emoji_events" />
         <Label>Battle</Label>
       </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="(social)">
+        <Icon sf="person.2.fill" android="group" />
+        <Label>Social</Label>
+      </NativeTabs.Trigger>
       <NativeTabs.Trigger name="(profile)">
         <Icon sf="person.fill" android="person" />
         <Label>Profile</Label>

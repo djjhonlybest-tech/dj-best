@@ -3,7 +3,7 @@ import { Tabs } from 'expo-router';
 import { View, TouchableOpacity, Text, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BlurView } from 'expo-blur';
-import { Home, Music2, Plus, Trophy, User } from 'lucide-react-native';
+import { Home, Music2, Plus, Trophy, Users, User } from 'lucide-react-native';
 import { DJCOLORS } from '@/constants/djverse-colors';
 import { usePathname } from 'expo-router';
 
@@ -16,6 +16,7 @@ function DJTabBar({ state, descriptors, navigation }: any) {
     { name: '(studio)', label: 'Studio', Icon: Music2 },
     { name: '(create)', label: 'Create', Icon: Plus },
     { name: '(battle)', label: 'Battle', Icon: Trophy },
+    { name: '(social)', label: 'Social', Icon: Users },
     { name: '(profile)', label: 'Profile', Icon: User },
   ];
 
@@ -118,6 +119,7 @@ export default function TabLayout() {
       <Tabs.Screen name="(studio)" options={{ title: 'Studio' }} />
       <Tabs.Screen name="(create)" options={{ title: 'Create' }} />
       <Tabs.Screen name="(battle)" options={{ title: 'Battle' }} />
+      <Tabs.Screen name="(social)" options={{ title: 'Social' }} />
       <Tabs.Screen name="(profile)" options={{ title: 'Profile' }} />
     </Tabs>
   );

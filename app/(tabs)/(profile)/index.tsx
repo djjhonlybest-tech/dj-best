@@ -17,12 +17,16 @@ const GRID_COLORS = [
   '#3A2A1A', '#1A3A3A', '#2A1A3A',
 ];
 
-const TABS = ['POSTS', 'MIXES', 'LIKES'];
+const DJ_TABS = ['MIXES', 'BATTLES', 'SHORTS', 'LIKES'];
+const CREATOR_TABS = ['POSTS', 'VIDEOS', 'SHORTS', 'LIKES'];
 
 export default function ProfileScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState(0);
+  const [profileType, setProfileType] = useState<'dj' | 'creator'>('dj');
+
+  const TABS = profileType === 'dj' ? DJ_TABS : CREATOR_TABS;
 
   const opacity = useRef(new Animated.Value(0)).current;
   const translateY = useRef(new Animated.Value(20)).current;
@@ -59,6 +63,12 @@ export default function ProfileScreen() {
   const handleTabPress = (index: number) => {
     console.log(`[Profile] Tab pressed: ${TABS[index]}`);
     setActiveTab(index);
+  };
+
+  const handleProfileTypePress = (type: 'dj' | 'creator') => {
+    console.log(`[Profile] Profile type switched to: ${type}`);
+    setProfileType(type);
+    setActiveTab(0);
   };
 
   return (
@@ -128,6 +138,61 @@ export default function ProfileScreen() {
         </View>
 
         <Animated.View style={{ opacity, transform: [{ translateY }] }}>
+          {/* Profile type toggle */}
+          <View
+            style={{
+              flexDirection: 'row',
+              backgroundColor: DJCOLORS.surface,
+              borderRadius: 30,
+              padding: 4,
+              marginBottom: 20,
+              borderWidth: 1,
+              borderColor: DJCOLORS.border,
+              alignSelf: 'center',
+            }}
+          >
+            <AnimatedPressable onPress={() => handleProfileTypePress('dj')}>
+              <View
+                style={{
+                  paddingHorizontal: 20,
+                  paddingVertical: 10,
+                  borderRadius: 26,
+                  backgroundColor: profileType === 'dj' ? DJCOLORS.primary : 'transparent',
+                }}
+              >
+                <Text
+                  style={{
+                    color: profileType === 'dj' ? '#fff' : DJCOLORS.textSecondary,
+                    fontSize: 13,
+                    fontFamily: 'SpaceGrotesk-Bold',
+                  }}
+                >
+                  🎧 DJ Profile
+                </Text>
+              </View>
+            </AnimatedPressable>
+            <AnimatedPressable onPress={() => handleProfileTypePress('creator')}>
+              <View
+                style={{
+                  paddingHorizontal: 20,
+                  paddingVertical: 10,
+                  borderRadius: 26,
+                  backgroundColor: profileType === 'creator' ? DJCOLORS.primary : 'transparent',
+                }}
+              >
+                <Text
+                  style={{
+                    color: profileType === 'creator' ? '#fff' : DJCOLORS.textSecondary,
+                    fontSize: 13,
+                    fontFamily: 'SpaceGrotesk-Bold',
+                  }}
+                >
+                  📱 Creator Profile
+                </Text>
+              </View>
+            </AnimatedPressable>
+          </View>
+
           {/* Avatar */}
           <View style={{ alignItems: 'center', marginBottom: 16 }}>
             <View
@@ -254,6 +319,51 @@ export default function ProfileScreen() {
               </View>
             ))}
           </View>
+
+          {/* DJ Ranking badge row — only in DJ Profile mode */}
+          {profileType === 'dj' && (
+            <View
+              style={{
+                flexDirection: 'row',
+                gap: 8,
+                marginBottom: 16,
+              }}
+            >
+              {[
+                { icon: '🏆', label: 'GLOBAL RANK #47' },
+                { icon: '⭐', label: '512 PTS' },
+                { icon: '🔥', label: '12 WIN STREAK' },
+              ].map((chip) => (
+                <View
+                  key={chip.label}
+                  style={{
+                    flex: 1,
+                    backgroundColor: DJCOLORS.surface,
+                    borderRadius: 12,
+                    paddingVertical: 10,
+                    paddingHorizontal: 6,
+                    alignItems: 'center',
+                    borderWidth: 1,
+                    borderColor: DJCOLORS.border,
+                    gap: 3,
+                  }}
+                >
+                  <Text style={{ fontSize: 16 }}>{chip.icon}</Text>
+                  <Text
+                    style={{
+                      color: DJCOLORS.text,
+                      fontSize: 9,
+                      fontFamily: 'SpaceGrotesk-Bold',
+                      letterSpacing: 0.3,
+                      textAlign: 'center',
+                    }}
+                  >
+                    {chip.label}
+                  </Text>
+                </View>
+              ))}
+            </View>
+          )}
 
           {/* Bio */}
           <View
