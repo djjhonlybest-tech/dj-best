@@ -92,6 +92,8 @@ export default function RootLayout() {
                 <Stack.Screen name="ranking/index" options={{ headerShown: false }} />
                 <Stack.Screen name="plans/index" options={{ headerShown: false }} />
                 <Stack.Screen name="social/[id]" options={{ headerShown: false }} />
+                <Stack.Screen name="stories/index" options={{ headerShown: false, presentation: 'modal' }} />
+                <Stack.Screen name="live/index" options={{ headerShown: false, presentation: 'fullScreenModal' }} />
               </Stack>
               <SystemBars style={"light"} />
             </GestureHandlerRootView>

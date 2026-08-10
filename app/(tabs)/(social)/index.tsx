@@ -3,8 +3,7 @@ import {
   View,
   Text,
   FlatList,
-  TextInput,
-  TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -12,7 +11,27 @@ import { Bell, MessageCircle } from 'lucide-react-native';
 import { DJCOLORS } from '@/constants/djverse-colors';
 import { AnimatedPressable } from '@/components/AnimatedPressable';
 
-const FILTER_TABS = ['For You', 'Following', 'DJ', 'Trending'];
+// ─── Filter tabs ──────────────────────────────────────────────────────────────
+
+const FILTER_TABS = [
+  { label: 'For You', icon: '🔥' },
+  { label: 'Following', icon: '👥' },
+  { label: 'DJs', icon: '🎧' },
+  { label: 'Trending', icon: '🌎' },
+];
+
+// ─── Stories data ─────────────────────────────────────────────────────────────
+
+const STORIES = [
+  { id: 'you', label: 'Your Story', color: '#7B4FFF', initials: '+', isOwn: true },
+  { id: '1', label: 'DJ STORM', color: '#FF4F4F', initials: 'DS', isOwn: false },
+  { id: '2', label: 'MARIE', color: '#FF4FC8', initials: 'MA', isOwn: false },
+  { id: '3', label: 'DJ NOVA', color: '#4FC8FF', initials: 'DN', isOwn: false },
+  { id: '4', label: 'KOMPA K', color: '#FFB800', initials: 'KK', isOwn: false },
+  { id: '5', label: 'PARTY Q', color: '#34D399', initials: 'PQ', isOwn: false },
+];
+
+// ─── Post types ───────────────────────────────────────────────────────────────
 
 type PostType = 'Mix' | 'Photo' | 'Battle' | 'Video' | 'Short' | 'Event';
 type UserType = 'DJ' | 'Creator' | 'Fan';
@@ -28,6 +47,7 @@ interface Post {
   timeAgo: string;
   avatarColor: string;
   contentColor: string;
+  isLive: boolean;
 }
 
 const POSTS: Post[] = [
@@ -42,6 +62,7 @@ const POSTS: Post[] = [
     timeAgo: '2h ago',
     avatarColor: '#7B4FFF',
     contentColor: '#1A0A3A',
+    isLive: true,
   },
   {
     id: '2',
@@ -54,6 +75,7 @@ const POSTS: Post[] = [
     timeAgo: '4h ago',
     avatarColor: '#FF4FC8',
     contentColor: '#0A1A3A',
+    isLive: false,
   },
   {
     id: '3',
@@ -66,6 +88,7 @@ const POSTS: Post[] = [
     timeAgo: '5h ago',
     avatarColor: '#FF4F4F',
     contentColor: '#3A0A0A',
+    isLive: false,
   },
   {
     id: '4',
@@ -78,6 +101,7 @@ const POSTS: Post[] = [
     timeAgo: '7h ago',
     avatarColor: '#4FC8FF',
     contentColor: '#0A2A1A',
+    isLive: false,
   },
   {
     id: '5',
@@ -90,6 +114,7 @@ const POSTS: Post[] = [
     timeAgo: '9h ago',
     avatarColor: '#FFB84F',
     contentColor: '#2A0A2A',
+    isLive: true,
   },
   {
     id: '6',
@@ -102,6 +127,7 @@ const POSTS: Post[] = [
     timeAgo: '12h ago',
     avatarColor: '#4FFF8A',
     contentColor: '#1A2A0A',
+    isLive: false,
   },
   {
     id: '7',
@@ -114,6 +140,7 @@ const POSTS: Post[] = [
     timeAgo: '1d ago',
     avatarColor: '#A04FFF',
     contentColor: '#1A0A3A',
+    isLive: false,
   },
   {
     id: '8',
@@ -126,6 +153,7 @@ const POSTS: Post[] = [
     timeAgo: '1d ago',
     avatarColor: '#FF8A4F',
     contentColor: '#0A1A3A',
+    isLive: false,
   },
 ];
 
@@ -160,17 +188,94 @@ function formatCount(n: number): string {
   return String(n);
 }
 
+// ─── Story Circle ─────────────────────────────────────────────────────────────
+
+function StoryCircle({ story }: { story: typeof STORIES[0] }) {
+  const handlePress = () => {
+    console.log(`[Social] Story pressed: ${story.label}`);
+  };
+
+  return (
+    <AnimatedPressable onPress={handlePress}>
+      <View style={{ alignItems: 'center', marginRight: 12 }}>
+        <View
+          style={{
+            width: 68,
+            height: 68,
+            borderRadius: 34,
+            borderWidth: 2,
+            borderColor: story.color,
+            padding: 3,
+            marginBottom: 5,
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              borderRadius: 30,
+              backgroundColor: story.color + '33',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Text style={{ color: '#fff', fontSize: 15, fontFamily: 'SpaceGrotesk-Bold' }}>
+              {story.initials}
+            </Text>
+          </View>
+          {story.isOwn && (
+            <View
+              style={{
+                position: 'absolute',
+                bottom: -2,
+                right: -2,
+                width: 20,
+                height: 20,
+                borderRadius: 10,
+                backgroundColor: DJCOLORS.primary,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderWidth: 2,
+                borderColor: DJCOLORS.background,
+              }}
+            >
+              <Text style={{ color: '#fff', fontSize: 11, lineHeight: 14 }}>+</Text>
+            </View>
+          )}
+        </View>
+        <Text
+          style={{
+            color: DJCOLORS.textSecondary,
+            fontSize: 10,
+            fontFamily: 'SpaceGrotesk-Medium',
+            maxWidth: 60,
+            textAlign: 'center',
+          }}
+          numberOfLines={1}
+        >
+          {story.label}
+        </Text>
+      </View>
+    </AnimatedPressable>
+  );
+}
+
+// ─── Post Card ────────────────────────────────────────────────────────────────
+
 function PostCard({ post }: { post: Post }) {
   const router = useRouter();
   const [liked, setLiked] = useState(false);
   const [saved, setSaved] = useState(false);
   const [likeCount, setLikeCount] = useState(post.likes);
+  const [showMore, setShowMore] = useState(false);
 
   const userTypeBadge = USER_TYPE_BADGE[post.userType];
   const postTypeBadge = POST_TYPE_BADGE[post.postType];
   const postTypeIcon = POST_TYPE_ICON[post.postType];
   const likeDisplay = formatCount(likeCount);
   const commentDisplay = formatCount(post.comments);
+  const likeEmoji = liked ? '❤️' : '🤍';
+  const likeColor = liked ? '#FF4F4F' : DJCOLORS.textSecondary;
+  const savedEmoji = saved ? '🔖' : '🔖';
 
   const handleLike = () => {
     console.log(`[Social] Like pressed on post ${post.id} (${post.username})`);
@@ -197,7 +302,18 @@ function PostCard({ post }: { post: Post }) {
   };
 
   const handleMore = () => {
-    console.log(`[Social] More pressed on post ${post.id}`);
+    console.log(`[Social] More menu toggled on post ${post.id}`);
+    setShowMore((v) => !v);
+  };
+
+  const handleReport = () => {
+    console.log(`[Social] Report pressed on post ${post.id}`);
+    setShowMore(false);
+  };
+
+  const handleMute = () => {
+    console.log(`[Social] Mute pressed for user ${post.username}`);
+    setShowMore(false);
   };
 
   const handleFollow = () => {
@@ -252,7 +368,6 @@ function PostCard({ post }: { post: Post }) {
             gap: 10,
           }}
         >
-          {/* Avatar */}
           <View
             style={{
               width: 42,
@@ -268,7 +383,6 @@ function PostCard({ post }: { post: Post }) {
             </Text>
           </View>
 
-          {/* Username + badge */}
           <View style={{ flex: 1 }}>
             <Text
               style={{
@@ -296,7 +410,6 @@ function PostCard({ post }: { post: Post }) {
             </View>
           </View>
 
-          {/* Follow button */}
           <AnimatedPressable onPress={handleFollow}>
             <View
               style={{
@@ -327,9 +440,31 @@ function PostCard({ post }: { post: Post }) {
             marginBottom: 12,
             borderWidth: 1,
             borderColor: DJCOLORS.border,
+            overflow: 'hidden',
           }}
         >
           <Text style={{ fontSize: 40 }}>{postTypeIcon}</Text>
+
+          {/* LIVE badge */}
+          {post.isLive && (
+            <View
+              style={{
+                position: 'absolute',
+                top: 8,
+                left: 8,
+                backgroundColor: '#FF4F4F',
+                borderRadius: 10,
+                paddingHorizontal: 8,
+                paddingVertical: 4,
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 4,
+              }}
+            >
+              <View style={{ width: 5, height: 5, borderRadius: 3, backgroundColor: '#fff' }} />
+              <Text style={{ color: '#fff', fontSize: 10, fontFamily: 'SpaceGrotesk-Bold' }}>LIVE</Text>
+            </View>
+          )}
         </View>
 
         {/* Caption */}
@@ -356,23 +491,15 @@ function PostCard({ post }: { post: Post }) {
             gap: 4,
           }}
         >
-          {/* Like */}
           <AnimatedPressable onPress={handleLike} style={{ flex: 1 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-              <Text style={{ fontSize: 18 }}>{liked ? '❤️' : '🤍'}</Text>
-              <Text
-                style={{
-                  color: liked ? '#FF4F4F' : DJCOLORS.textSecondary,
-                  fontSize: 12,
-                  fontFamily: 'SpaceGrotesk-Medium',
-                }}
-              >
+              <Text style={{ fontSize: 18 }}>{likeEmoji}</Text>
+              <Text style={{ color: likeColor, fontSize: 12, fontFamily: 'SpaceGrotesk-Medium' }}>
                 {likeDisplay}
               </Text>
             </View>
           </AnimatedPressable>
 
-          {/* Comment */}
           <AnimatedPressable onPress={handleComment} style={{ flex: 1 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
               <Text style={{ fontSize: 18 }}>💬</Text>
@@ -382,7 +509,6 @@ function PostCard({ post }: { post: Post }) {
             </View>
           </AnimatedPressable>
 
-          {/* Share */}
           <AnimatedPressable onPress={handleShare} style={{ flex: 1 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
               <Text style={{ fontSize: 18 }}>↗️</Text>
@@ -392,12 +518,10 @@ function PostCard({ post }: { post: Post }) {
             </View>
           </AnimatedPressable>
 
-          {/* Save */}
           <AnimatedPressable onPress={handleSave}>
-            <Text style={{ fontSize: 18 }}>{saved ? '🔖' : '🔖'}</Text>
+            <Text style={{ fontSize: 18 }}>{savedEmoji}</Text>
           </AnimatedPressable>
 
-          {/* More */}
           <AnimatedPressable onPress={handleMore} style={{ marginLeft: 4 }}>
             <Text style={{ color: DJCOLORS.textSecondary, fontSize: 18, lineHeight: 22 }}>···</Text>
           </AnimatedPressable>
@@ -416,17 +540,56 @@ function PostCard({ post }: { post: Post }) {
         >
           {post.timeAgo}
         </Text>
+
+        {/* More menu */}
+        {showMore && (
+          <View
+            style={{
+              marginHorizontal: 14,
+              marginBottom: 14,
+              backgroundColor: DJCOLORS.surfaceSecondary,
+              borderRadius: 12,
+              borderWidth: 1,
+              borderColor: DJCOLORS.border,
+              overflow: 'hidden',
+            }}
+          >
+            <AnimatedPressable onPress={handleReport}>
+              <View
+                style={{
+                  paddingHorizontal: 16,
+                  paddingVertical: 12,
+                  borderBottomWidth: 1,
+                  borderBottomColor: DJCOLORS.divider,
+                }}
+              >
+                <Text style={{ color: DJCOLORS.danger, fontSize: 14, fontFamily: 'SpaceGrotesk-Medium' }}>
+                  🚫 Report
+                </Text>
+              </View>
+            </AnimatedPressable>
+            <AnimatedPressable onPress={handleMute}>
+              <View style={{ paddingHorizontal: 16, paddingVertical: 12 }}>
+                <Text style={{ color: DJCOLORS.textSecondary, fontSize: 14, fontFamily: 'SpaceGrotesk-Medium' }}>
+                  🔕 Mute
+                </Text>
+              </View>
+            </AnimatedPressable>
+          </View>
+        )}
       </View>
     </AnimatedPressable>
   );
 }
+
+// ─── Main Screen ──────────────────────────────────────────────────────────────
 
 export default function SocialFeedScreen() {
   const insets = useSafeAreaInsets();
   const [activeFilter, setActiveFilter] = useState(0);
 
   const handleFilterPress = (index: number) => {
-    console.log(`[Social] Tab changed to ${FILTER_TABS[index]}`);
+    console.log(`[Social] Tab changed to ${FILTER_TABS[index].label}`);
     setActiveFilter(index);
   };
 
@@ -439,7 +602,6 @@ export default function SocialFeedScreen() {
   };
 
   const renderPost = ({ item }: { item: Post }) => <PostCard post={item} />;
-
   const keyExtractor = (item: Post) => item.id;
 
   const ListHeader = (
@@ -455,14 +617,7 @@ export default function SocialFeedScreen() {
           paddingBottom: 16,
         }}
       >
-        <Text
-          style={{
-            fontSize: 22,
-            fontFamily: 'SpaceGrotesk-Bold',
-            color: DJCOLORS.text,
-            letterSpacing: 2,
-          }}
-        >
+        <Text style={{ fontSize: 22, fontFamily: 'SpaceGrotesk-Bold', color: DJCOLORS.text, letterSpacing: 2 }}>
           DJ
           <Text style={{ color: DJCOLORS.primary }}>VERSE</Text>
         </Text>
@@ -504,19 +659,26 @@ export default function SocialFeedScreen() {
         </View>
       </View>
 
-      {/* Filter tabs */}
-      <View
-        style={{
-          flexDirection: 'row',
-          paddingHorizontal: 20,
-          marginBottom: 16,
-          gap: 4,
-        }}
+      {/* Stories bar */}
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={{ marginBottom: 16 }}
+        contentContainerStyle={{ paddingHorizontal: 16 }}
       >
+        {STORIES.map((story) => (
+          <StoryCircle key={story.id} story={story} />
+        ))}
+      </ScrollView>
+
+      {/* Filter tabs */}
+      <View style={{ flexDirection: 'row', paddingHorizontal: 20, marginBottom: 16, gap: 4 }}>
         {FILTER_TABS.map((tab, i) => {
           const isActive = activeFilter === i;
+          const tabLabel = tab.label;
+          const tabIcon = tab.icon;
           return (
-            <AnimatedPressable key={tab} onPress={() => handleFilterPress(i)} style={{ flex: 1 }}>
+            <AnimatedPressable key={tab.label} onPress={() => handleFilterPress(i)} style={{ flex: 1 }}>
               <View
                 style={{
                   paddingVertical: 8,
@@ -525,14 +687,15 @@ export default function SocialFeedScreen() {
                   borderBottomColor: isActive ? DJCOLORS.primary : 'transparent',
                 }}
               >
+                <Text style={{ fontSize: 13, marginBottom: 1 }}>{tabIcon}</Text>
                 <Text
                   style={{
                     color: isActive ? DJCOLORS.primary : DJCOLORS.textSecondary,
-                    fontSize: 13,
+                    fontSize: 11,
                     fontFamily: isActive ? 'SpaceGrotesk-Bold' : 'SpaceGrotesk-Medium',
                   }}
                 >
-                  {tab}
+                  {tabLabel}
                 </Text>
               </View>
             </AnimatedPressable>
@@ -549,10 +712,7 @@ export default function SocialFeedScreen() {
         renderItem={renderPost}
         keyExtractor={keyExtractor}
         ListHeaderComponent={ListHeader}
-        contentContainerStyle={{
-          paddingHorizontal: 16,
-          paddingBottom: 120,
-        }}
+        contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 120 }}
         showsVerticalScrollIndicator={false}
       />
     </View>
