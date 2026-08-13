@@ -96,6 +96,9 @@ export default function RootLayout() {
                 <Stack.Screen name="live/index" options={{ headerShown: false, presentation: 'fullScreenModal' }} />
                 <Stack.Screen name="booking/index" options={{ headerShown: false }} />
                 <Stack.Screen name="tips/index" options={{ headerShown: false }} />
+                <Stack.Screen name="messages/index" options={{ headerShown: false }} />
+                <Stack.Screen name="messages/[id]" options={{ headerShown: false }} />
+                <Stack.Screen name="messages/new" options={{ headerShown: false }} />
               </Stack>
               <SystemBars style={"light"} />
             </GestureHandlerRootView>

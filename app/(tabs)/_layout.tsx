@@ -104,13 +104,20 @@ function DJTabBar({ state, descriptors, navigation }: any) {
   );
 }
 
+
 export default function TabLayout() {
   return (
     <Tabs
       tabBar={(props) => <DJTabBar {...props} />}
       screenOptions={{ headerShown: false }}
     >
-      <Tabs.Screen name="(home)" options={{ title: 'Home' }} />
+      <Tabs.Screen
+        name="(home)"
+        options={{
+          title: 'Home',
+          headerShown: false,
+        }}
+      />
       <Tabs.Screen name="(search)" options={{ title: 'Search' }} />
       <Tabs.Screen name="(create)" options={{ title: 'Create' }} />
       <Tabs.Screen name="(dj)" options={{ title: 'DJ' }} />

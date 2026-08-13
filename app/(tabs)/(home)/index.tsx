@@ -728,7 +728,8 @@ export default function HomeScreen() {
   };
 
   const handleDM = () => {
-    console.log('[Home] DM button pressed');
+    console.log('[Home] DM button pressed — navigating to messages');
+    router.push('/messages/index' as any);
   };
 
   const handleSeeAllTrending = () => {
@@ -829,6 +830,34 @@ export default function HomeScreen() {
               }}
             >
               <MessageCircle size={20} color={DJCOLORS.textSecondary} />
+              {/* Unread badge */}
+              <View
+                style={{
+                  position: 'absolute',
+                  top: 7,
+                  right: 7,
+                  minWidth: 14,
+                  height: 14,
+                  borderRadius: 7,
+                  backgroundColor: DJCOLORS.danger,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  paddingHorizontal: 3,
+                  borderWidth: 1.5,
+                  borderColor: DJCOLORS.surface,
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 8,
+                    fontWeight: '700',
+                    color: '#FFFFFF',
+                    fontFamily: 'SpaceGrotesk-Bold',
+                  }}
+                >
+                  3
+                </Text>
+              </View>
             </View>
           </AnimatedPressable>
         </View>
