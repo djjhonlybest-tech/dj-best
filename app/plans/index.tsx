@@ -61,6 +61,45 @@ const PLANS = [
   },
 ];
 
+const INCOME_STREAMS = [
+  {
+    id: 'tips',
+    icon: '💰',
+    title: 'Fan Tips',
+    description: 'Earn tips from your fans during Lives and posts',
+    action: 'ENABLE',
+    actionType: 'button' as const,
+    route: '/tips',
+  },
+  {
+    id: 'tickets',
+    icon: '🎟️',
+    title: 'Event Tickets',
+    description: 'Sell tickets to your events directly',
+    action: 'COMING SOON',
+    actionType: 'badge' as const,
+    route: null,
+  },
+  {
+    id: 'booking',
+    icon: '📍',
+    title: 'DJ Booking',
+    description: 'Get booked for events through DJ BEST',
+    action: 'SET UP',
+    actionType: 'button' as const,
+    route: '/booking',
+  },
+  {
+    id: 'promotions',
+    icon: '📢',
+    title: 'Promotions',
+    description: 'Promote your mixes to new audiences',
+    action: 'COMING SOON',
+    actionType: 'badge' as const,
+    route: null,
+  },
+];
+
 export default function PlansScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
@@ -91,6 +130,13 @@ export default function PlansScreen() {
     console.log(`[Plans] Continue button pressed with plan: ${plan?.name} ${plan?.price}`);
   };
 
+  const handleIncomeStream = (stream: typeof INCOME_STREAMS[0]) => {
+    console.log(`[Plans] Income stream action pressed: ${stream.title} → ${stream.action}`);
+    if (stream.route) {
+      router.push(stream.route as any);
+    }
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: DJCOLORS.background }}>
       <ScrollView
@@ -102,13 +148,7 @@ export default function PlansScreen() {
         showsVerticalScrollIndicator={false}
       >
         {/* Header */}
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginBottom: 28,
-          }}
-        >
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 28 }}>
           <AnimatedPressable onPress={handleBack}>
             <View
               style={{
@@ -126,22 +166,114 @@ export default function PlansScreen() {
               <ArrowLeft size={20} color={DJCOLORS.text} />
             </View>
           </AnimatedPressable>
-
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: '800',
-              color: DJCOLORS.text,
-              fontFamily: 'SpaceGrotesk-Bold',
-              letterSpacing: -0.3,
-            }}
-          >
+          <Text style={{ fontSize: 20, fontWeight: '800', color: DJCOLORS.text, fontFamily: 'SpaceGrotesk-Bold', letterSpacing: -0.3 }}>
             CHOOSE YOUR PLAN
           </Text>
         </View>
 
         <Animated.View style={{ opacity, transform: [{ translateY }] }}>
-          {PLANS.map((plan, index) => {
+          {/* ── MONETIZATION SECTION ── */}
+          <View style={{ marginBottom: 28 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 14 }}>
+              <Text style={{ fontSize: 16, fontFamily: 'SpaceGrotesk-Bold', color: DJCOLORS.text }}>
+                💰 MONETIZATION
+              </Text>
+              <View
+                style={{
+                  backgroundColor: `${DJCOLORS.gold}22`,
+                  borderRadius: 6,
+                  paddingHorizontal: 8,
+                  paddingVertical: 3,
+                  borderWidth: 1,
+                  borderColor: `${DJCOLORS.gold}44`,
+                }}
+              >
+                <Text style={{ color: DJCOLORS.gold, fontSize: 10, fontFamily: 'SpaceGrotesk-Bold' }}>
+                  EARN MONEY
+                </Text>
+              </View>
+            </View>
+
+            <View style={{ gap: 10 }}>
+              {INCOME_STREAMS.map((stream) => (
+                <View
+                  key={stream.id}
+                  style={{
+                    backgroundColor: DJCOLORS.surface,
+                    borderRadius: 16,
+                    padding: 16,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 14,
+                    borderWidth: 1,
+                    borderColor: DJCOLORS.border,
+                  }}
+                >
+                  <View
+                    style={{
+                      width: 44,
+                      height: 44,
+                      borderRadius: 22,
+                      backgroundColor: DJCOLORS.surfaceSecondary,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderWidth: 1,
+                      borderColor: DJCOLORS.border,
+                    }}
+                  >
+                    <Text style={{ fontSize: 20 }}>{stream.icon}</Text>
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Text style={{ color: DJCOLORS.text, fontSize: 14, fontFamily: 'SpaceGrotesk-Bold', marginBottom: 3 }}>
+                      {stream.title}
+                    </Text>
+                    <Text style={{ color: DJCOLORS.textSecondary, fontSize: 12, fontFamily: 'SpaceGrotesk-Regular' }} numberOfLines={2}>
+                      {stream.description}
+                    </Text>
+                  </View>
+                  {stream.actionType === 'button' ? (
+                    <AnimatedPressable onPress={() => handleIncomeStream(stream)}>
+                      <View
+                        style={{
+                          backgroundColor: DJCOLORS.primaryMuted,
+                          borderRadius: 10,
+                          paddingHorizontal: 14,
+                          paddingVertical: 8,
+                          borderWidth: 1,
+                          borderColor: DJCOLORS.primary,
+                        }}
+                      >
+                        <Text style={{ color: DJCOLORS.primary, fontSize: 12, fontFamily: 'SpaceGrotesk-Bold' }}>
+                          {stream.action}
+                        </Text>
+                      </View>
+                    </AnimatedPressable>
+                  ) : (
+                    <View
+                      style={{
+                        backgroundColor: `${DJCOLORS.gold}22`,
+                        borderRadius: 10,
+                        paddingHorizontal: 10,
+                        paddingVertical: 8,
+                        borderWidth: 1,
+                        borderColor: `${DJCOLORS.gold}44`,
+                      }}
+                    >
+                      <Text style={{ color: DJCOLORS.gold, fontSize: 10, fontFamily: 'SpaceGrotesk-Bold' }}>
+                        {stream.action}
+                      </Text>
+                    </View>
+                  )}
+                </View>
+              ))}
+            </View>
+          </View>
+
+          {/* Divider */}
+          <View style={{ height: 1, backgroundColor: DJCOLORS.border, marginBottom: 24 }} />
+
+          {/* Plan cards */}
+          {PLANS.map((plan) => {
             const isSelected = selectedPlan === plan.id;
 
             return (
@@ -157,7 +289,6 @@ export default function PlansScreen() {
                     padding: 20,
                     borderWidth: isSelected ? 2 : 1,
                     borderColor: isSelected ? plan.borderColor : DJCOLORS.border,
-                    boxShadow: isSelected ? `0 4px 20px ${plan.borderColor}20` : undefined,
                   }}
                 >
                   <View
@@ -177,35 +308,13 @@ export default function PlansScreen() {
                           paddingVertical: 5,
                         }}
                       >
-                        <Text
-                          style={{
-                            color: plan.badgeColor,
-                            fontWeight: '800',
-                            fontSize: 14,
-                            fontFamily: 'SpaceGrotesk-Bold',
-                            letterSpacing: 0.5,
-                          }}
-                        >
+                        <Text style={{ color: plan.badgeColor, fontWeight: '800', fontSize: 14, fontFamily: 'SpaceGrotesk-Bold', letterSpacing: 0.5 }}>
                           {plan.name}
                         </Text>
                       </View>
                       {plan.highlighted && (
-                        <View
-                          style={{
-                            backgroundColor: DJCOLORS.primary,
-                            borderRadius: 6,
-                            paddingHorizontal: 8,
-                            paddingVertical: 3,
-                          }}
-                        >
-                          <Text
-                            style={{
-                              color: DJCOLORS.text,
-                              fontSize: 10,
-                              fontWeight: '700',
-                              fontFamily: 'SpaceGrotesk-Bold',
-                            }}
-                          >
+                        <View style={{ backgroundColor: DJCOLORS.primary, borderRadius: 6, paddingHorizontal: 8, paddingVertical: 3 }}>
+                          <Text style={{ color: DJCOLORS.text, fontSize: 10, fontWeight: '700', fontFamily: 'SpaceGrotesk-Bold' }}>
                             POPULAR
                           </Text>
                         </View>
@@ -213,23 +322,10 @@ export default function PlansScreen() {
                     </View>
 
                     <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 2 }}>
-                      <Text
-                        style={{
-                          color: DJCOLORS.text,
-                          fontSize: 22,
-                          fontWeight: '800',
-                          fontFamily: 'SpaceGrotesk-Bold',
-                        }}
-                      >
+                      <Text style={{ color: DJCOLORS.text, fontSize: 22, fontWeight: '800', fontFamily: 'SpaceGrotesk-Bold' }}>
                         {plan.price}
                       </Text>
-                      <Text
-                        style={{
-                          color: DJCOLORS.textSecondary,
-                          fontSize: 13,
-                          fontFamily: 'SpaceGrotesk-Regular',
-                        }}
-                      >
+                      <Text style={{ color: DJCOLORS.textSecondary, fontSize: 13, fontFamily: 'SpaceGrotesk-Regular' }}>
                         {plan.period}
                       </Text>
                     </View>
@@ -237,10 +333,7 @@ export default function PlansScreen() {
 
                   <View style={{ gap: 8 }}>
                     {plan.features.map((feature) => (
-                      <View
-                        key={feature}
-                        style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}
-                      >
+                      <View key={feature} style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
                         <View
                           style={{
                             width: 20,
@@ -251,18 +344,9 @@ export default function PlansScreen() {
                             justifyContent: 'center',
                           }}
                         >
-                          <Check
-                            size={12}
-                            color={isSelected ? plan.borderColor : DJCOLORS.textTertiary}
-                          />
+                          <Check size={12} color={isSelected ? plan.borderColor : DJCOLORS.textTertiary} />
                         </View>
-                        <Text
-                          style={{
-                            color: DJCOLORS.textSecondary,
-                            fontSize: 14,
-                            fontFamily: 'SpaceGrotesk-Regular',
-                          }}
-                        >
+                        <Text style={{ color: DJCOLORS.textSecondary, fontSize: 14, fontFamily: 'SpaceGrotesk-Regular' }}>
                           {feature}
                         </Text>
                       </View>
@@ -285,14 +369,7 @@ export default function PlansScreen() {
                     }}
                   >
                     {isSelected && (
-                      <View
-                        style={{
-                          width: 12,
-                          height: 12,
-                          borderRadius: 6,
-                          backgroundColor: plan.borderColor,
-                        }}
-                      />
+                      <View style={{ width: 12, height: 12, borderRadius: 6, backgroundColor: plan.borderColor }} />
                     )}
                   </View>
                 </View>
@@ -322,21 +399,9 @@ export default function PlansScreen() {
             colors={[DJCOLORS.primary, DJCOLORS.accent]}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
-            style={{
-              borderRadius: 16,
-              paddingVertical: 18,
-              alignItems: 'center',
-            }}
+            style={{ borderRadius: 16, paddingVertical: 18, alignItems: 'center' }}
           >
-            <Text
-              style={{
-                color: DJCOLORS.text,
-                fontWeight: '800',
-                fontSize: 16,
-                fontFamily: 'SpaceGrotesk-Bold',
-                letterSpacing: 0.5,
-              }}
-            >
+            <Text style={{ color: DJCOLORS.text, fontWeight: '800', fontSize: 16, fontFamily: 'SpaceGrotesk-Bold', letterSpacing: 0.5 }}>
               CONTINUE
             </Text>
           </LinearGradient>

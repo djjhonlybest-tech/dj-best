@@ -50,6 +50,16 @@ export default function ProfileScreen() {
     console.log('[Profile] Share Profile button pressed');
   };
 
+  const handleTips = () => {
+    console.log('[Profile] Tips button pressed → navigating to /tips');
+    router.push('/tips' as any);
+  };
+
+  const handleBooking = () => {
+    console.log('[Profile] Booking button pressed → navigating to /booking');
+    router.push('/booking' as any);
+  };
+
   const handleViewRanking = () => {
     console.log('[Profile] View Full Ranking button pressed → navigating to Ranking');
     router.push('/ranking' as any);
@@ -377,7 +387,7 @@ export default function ProfileScreen() {
           </View>
 
           {/* Action Buttons */}
-          <View style={{ flexDirection: 'row', gap: 12, marginBottom: 28 }}>
+          <View style={{ flexDirection: 'row', gap: 10, marginBottom: 12 }}>
             <AnimatedPressable onPress={handleEditProfile} style={{ flex: 1 }}>
               <View
                 style={{
@@ -389,14 +399,7 @@ export default function ProfileScreen() {
                   borderColor: DJCOLORS.primary,
                 }}
               >
-                <Text
-                  style={{
-                    color: DJCOLORS.primary,
-                    fontWeight: '700',
-                    fontSize: 14,
-                    fontFamily: 'SpaceGrotesk-Bold',
-                  }}
-                >
+                <Text style={{ color: DJCOLORS.primary, fontWeight: '700', fontSize: 14, fontFamily: 'SpaceGrotesk-Bold' }}>
                   Edit Profile
                 </Text>
               </View>
@@ -413,19 +416,62 @@ export default function ProfileScreen() {
                   borderColor: DJCOLORS.border,
                 }}
               >
-                <Text
-                  style={{
-                    color: DJCOLORS.text,
-                    fontWeight: '700',
-                    fontSize: 14,
-                    fontFamily: 'SpaceGrotesk-Bold',
-                  }}
-                >
+                <Text style={{ color: DJCOLORS.text, fontWeight: '700', fontSize: 14, fontFamily: 'SpaceGrotesk-Bold' }}>
                   Share Profile
                 </Text>
               </View>
             </AnimatedPressable>
           </View>
+
+          {/* DJ action buttons — Tips + Booking */}
+          {profileType === 'dj' && (
+            <View style={{ flexDirection: 'row', gap: 10, marginBottom: 28 }}>
+              <AnimatedPressable onPress={handleTips} style={{ flex: 1 }}>
+                <View
+                  style={{
+                    backgroundColor: `${DJCOLORS.gold}15`,
+                    borderRadius: 14,
+                    paddingVertical: 14,
+                    alignItems: 'center',
+                    borderWidth: 1,
+                    borderColor: `${DJCOLORS.gold}55`,
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    gap: 6,
+                  }}
+                >
+                  <Text style={{ fontSize: 14 }}>💰</Text>
+                  <Text style={{ color: DJCOLORS.gold, fontWeight: '700', fontSize: 14, fontFamily: 'SpaceGrotesk-Bold' }}>
+                    Tips
+                  </Text>
+                </View>
+              </AnimatedPressable>
+
+              <AnimatedPressable onPress={handleBooking} style={{ flex: 1 }}>
+                <View
+                  style={{
+                    backgroundColor: `${DJCOLORS.accentBlue}15`,
+                    borderRadius: 14,
+                    paddingVertical: 14,
+                    alignItems: 'center',
+                    borderWidth: 1,
+                    borderColor: `${DJCOLORS.accentBlue}55`,
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    gap: 6,
+                  }}
+                >
+                  <Text style={{ fontSize: 14 }}>📍</Text>
+                  <Text style={{ color: DJCOLORS.accentBlue, fontWeight: '700', fontSize: 14, fontFamily: 'SpaceGrotesk-Bold' }}>
+                    Booking
+                  </Text>
+                </View>
+              </AnimatedPressable>
+            </View>
+          )}
+
+          {/* Spacer when not DJ mode */}
+          {profileType !== 'dj' && <View style={{ marginBottom: 28 }} />}
 
           {/* Segmented Tabs */}
           <ScrollView

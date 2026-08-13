@@ -62,6 +62,11 @@ export default function DJHubScreen() {
     router.push('/ai-assistant' as any);
   };
 
+  const handleBooking = () => {
+    console.log('[DJ Hub] BOOK A DJ pressed → navigating to /booking');
+    router.push('/booking' as any);
+  };
+
   const handleStudio = () => {
     console.log('[DJ Hub] Studio pressed');
     router.push('/(tabs)/(studio)' as any);
@@ -202,6 +207,67 @@ export default function DJHubScreen() {
               </Text>
             </View>
           </LinearGradient>
+        </AnimatedPressable>
+
+        {/* Book a DJ */}
+        <AnimatedPressable onPress={handleBooking} style={{ marginHorizontal: 20, marginBottom: 16 }}>
+          <View
+            style={{
+              backgroundColor: DJCOLORS.surface,
+              borderRadius: 16,
+              padding: 16,
+              borderWidth: 1,
+              borderColor: `${DJCOLORS.gold}55`,
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 14,
+            }}
+          >
+            <View
+              style={{
+                width: 48,
+                height: 48,
+                borderRadius: 24,
+                backgroundColor: `${DJCOLORS.gold}22`,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderWidth: 1,
+                borderColor: `${DJCOLORS.gold}55`,
+              }}
+            >
+              <Text style={{ fontSize: 22 }}>📍</Text>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontFamily: 'SpaceGrotesk-Bold',
+                  color: DJCOLORS.text,
+                  marginBottom: 3,
+                }}
+              >
+                BOOK A DJ
+              </Text>
+              <Text
+                style={{
+                  fontSize: 12,
+                  fontFamily: 'SpaceGrotesk-Regular',
+                  color: DJCOLORS.textSecondary,
+                }}
+              >
+                Hire a DJ for your next event
+              </Text>
+            </View>
+            <Text
+              style={{
+                fontSize: 14,
+                fontFamily: 'SpaceGrotesk-Bold',
+                color: DJCOLORS.gold,
+              }}
+            >
+              Book →
+            </Text>
+          </View>
         </AnimatedPressable>
 
         {/* DJ Studio */}
