@@ -4,6 +4,7 @@ import {
   Text,
   ScrollView,
   Animated,
+  Linking,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -11,6 +12,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { ArrowLeft, Check } from 'lucide-react-native';
 import { DJCOLORS } from '@/constants/djverse-colors';
 import { AnimatedPressable } from '@/components/AnimatedPressable';
+
+const TERMS_URL = 'https://djbest.app/terms';
+const PRIVACY_URL = 'https://djbest.app/privacy';
 
 const PLANS = [
   {
@@ -406,6 +410,25 @@ export default function PlansScreen() {
             </Text>
           </LinearGradient>
         </AnimatedPressable>
+
+        {/* Required by Apple Guideline 3.1.2 */}
+        <Text style={{ color: DJCOLORS.textTertiary, fontSize: 11, fontFamily: 'SpaceGrotesk-Regular', textAlign: 'center', marginTop: 12, lineHeight: 16 }}>
+          By continuing you agree to our{' '}
+          <Text
+            style={{ color: DJCOLORS.primary, textDecorationLine: 'underline' }}
+            onPress={() => Linking.openURL(TERMS_URL)}
+          >
+            Terms of Service
+          </Text>
+          {' '}and{' '}
+          <Text
+            style={{ color: DJCOLORS.primary, textDecorationLine: 'underline' }}
+            onPress={() => Linking.openURL(PRIVACY_URL)}
+          >
+            Privacy Policy
+          </Text>
+          . Subscriptions auto-renew unless cancelled.
+        </Text>
       </View>
     </View>
   );
