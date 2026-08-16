@@ -10,6 +10,8 @@ import { useRouter } from 'expo-router';
 import { Settings } from 'lucide-react-native';
 import { DJCOLORS } from '@/constants/djverse-colors';
 import { AnimatedPressable } from '@/components/AnimatedPressable';
+import { useProContext } from '@/contexts/ProContext';
+import { ProGate } from '@/components/ProGate';
 
 const GRID_COLORS = [
   '#2A1A4A', '#1A2A4A', '#1A3A2A',
@@ -25,6 +27,9 @@ export default function ProfileScreen() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState(0);
   const [profileType, setProfileType] = useState<'dj' | 'creator'>('dj');
+  const { isPro } = useProContext();
+
+  const showProGate = profileType === 'dj' && !isPro;
 
   const TABS = profileType === 'dj' ? DJ_TABS : CREATOR_TABS;
 
@@ -83,7 +88,7 @@ export default function ProfileScreen() {
   const showMixesSoundBanner = profileType === 'dj' && (activeTab === 0 || activeTab === 1);
 
   return (
-    <View style={{ flex: 1, backgroundColor: DJCOLORS.background }}>
+    <View style={{ flex: 1, backgroundColor: DJCOLORS.background, position: 'relative' }}>
       <ScrollView
         contentContainerStyle={{
           paddingTop: insets.top + 16,
@@ -228,6 +233,30 @@ export default function ProfileScreen() {
                 DJ JHONLYBEST
               </Text>
               <Text style={{ fontSize: 18, color: DJCOLORS.accentBlue }}>✓</Text>
+              {isPro && profileType === 'dj' && (
+                <View
+                  style={{
+                    backgroundColor: `${DJCOLORS.gold}22`,
+                    borderRadius: 8,
+                    paddingHorizontal: 8,
+                    paddingVertical: 3,
+                    borderWidth: 1,
+                    borderColor: `${DJCOLORS.gold}66`,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: DJCOLORS.gold,
+                      fontSize: 11,
+                      fontFamily: 'SpaceGrotesk-Bold',
+                      fontWeight: '800',
+                      letterSpacing: 0.5,
+                    }}
+                  >
+                    ⭐ PRO
+                  </Text>
+                </View>
+              )}
             </View>
 
             <Text
@@ -622,6 +651,9 @@ export default function ProfileScreen() {
           </AnimatedPressable>
         </Animated.View>
       </ScrollView>
+
+      {/* Pro gate overlay — only for DJ profile tab */}
+      <ProGate active={showProGate} />
     </View>
   );
 }

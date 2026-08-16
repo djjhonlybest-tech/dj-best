@@ -12,6 +12,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { ArrowLeft, Check } from 'lucide-react-native';
 import { DJCOLORS } from '@/constants/djverse-colors';
 import { AnimatedPressable } from '@/components/AnimatedPressable';
+import { useProContext, PlanType } from '@/contexts/ProContext';
 
 const TERMS_URL = 'https://djbest.app/terms';
 const PRIVACY_URL = 'https://djbest.app/privacy';
@@ -108,9 +109,13 @@ export default function PlansScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const [selectedPlan, setSelectedPlan] = useState('pro');
+  const [showToast, setShowToast] = useState(false);
+  const { setPlan } = useProContext();
 
   const opacity = useRef(new Animated.Value(0)).current;
   const translateY = useRef(new Animated.Value(20)).current;
+  const toastOpacity = useRef(new Animated.Value(0)).current;
+  const toastTranslateY = useRef(new Animated.Value(-20)).current;
 
   useEffect(() => {
     Animated.parallel([
@@ -132,6 +137,34 @@ export default function PlansScreen() {
   const handleContinue = () => {
     const plan = PLANS.find((p) => p.id === selectedPlan);
     console.log(`[Plans] Continue button pressed with plan: ${plan?.name} ${plan?.price}`);
+
+    if (selectedPlan === 'pro' || selectedPlan === 'elite') {
+      setPlan(selectedPlan as PlanType);
+      console.log(`[Plans] Plan set to ${selectedPlan} — showing success toast`);
+
+      // Show toast
+      setShowToast(true);
+      Animated.parallel([
+        Animated.timing(toastOpacity, { toValue: 1, duration: 250, useNativeDriver: true }),
+        Animated.timing(toastTranslateY, { toValue: 0, duration: 250, useNativeDriver: true }),
+      ]).start(() => {
+        // Hold for 2 seconds then navigate back
+        setTimeout(() => {
+          Animated.parallel([
+            Animated.timing(toastOpacity, { toValue: 0, duration: 200, useNativeDriver: true }),
+            Animated.timing(toastTranslateY, { toValue: -20, duration: 200, useNativeDriver: true }),
+          ]).start(() => {
+            setShowToast(false);
+            console.log('[Plans] Navigating back after plan upgrade');
+            router.back();
+          });
+        }, 2000);
+      });
+    } else {
+      // Free plan — just go back
+      setPlan('free');
+      router.back();
+    }
   };
 
   const handleIncomeStream = (stream: typeof INCOME_STREAMS[0]) => {
@@ -382,6 +415,53 @@ export default function PlansScreen() {
           })}
         </Animated.View>
       </ScrollView>
+
+      {/* Success Toast */}
+      {showToast && (
+        <Animated.View
+          style={{
+            position: 'absolute',
+            top: insets.top + 16,
+            left: 20,
+            right: 20,
+            opacity: toastOpacity,
+            transform: [{ translateY: toastTranslateY }],
+            zIndex: 200,
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: DJCOLORS.surface,
+              borderRadius: 16,
+              paddingVertical: 14,
+              paddingHorizontal: 20,
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 10,
+              borderWidth: 1,
+              borderColor: `${DJCOLORS.gold}55`,
+              shadowColor: DJCOLORS.gold,
+              shadowOffset: { width: 0, height: 4 },
+              shadowOpacity: 0.2,
+              shadowRadius: 12,
+              elevation: 8,
+            }}
+          >
+            <Text style={{ fontSize: 20 }}>🎉</Text>
+            <Text
+              style={{
+                color: DJCOLORS.text,
+                fontSize: 14,
+                fontFamily: 'SpaceGrotesk-Bold',
+                fontWeight: '700',
+                flex: 1,
+              }}
+            >
+              Welcome to DJ BEST Pro!
+            </Text>
+          </View>
+        </Animated.View>
+      )}
 
       {/* Continue Button */}
       <View

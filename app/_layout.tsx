@@ -15,6 +15,7 @@ import {
 } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { WidgetProvider } from "@/contexts/WidgetContext";
+import { ProProvider } from "@/contexts/ProContext";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 // Note: Error logging is auto-initialized via index.ts import
 
@@ -82,6 +83,7 @@ export default function RootLayout() {
       <ThemeProvider value={DJVerseDarkTheme}>
         <SafeAreaProvider>
           <WidgetProvider>
+            <ProProvider>
             <GestureHandlerRootView>
               <Stack>
                 {/* Main app with tabs */}
@@ -102,6 +104,7 @@ export default function RootLayout() {
               </Stack>
               <SystemBars style={"light"} />
             </GestureHandlerRootView>
+            </ProProvider>
           </WidgetProvider>
         </SafeAreaProvider>
       </ThemeProvider>
